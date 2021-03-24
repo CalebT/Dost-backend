@@ -1,6 +1,8 @@
 const express = require('express') 
 const database = require('./mysqlDatabase')
 
+const jwt = require('./jwt')
+
 const app = express() 
 
 app.use(expres.json())
@@ -22,25 +24,23 @@ app.use('/', function(req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   });
-  
 
-let users = [
-  {
-    id: 1,
-    username: "Bob",
-    password: "password"
-  },
-  {
-    id: 2,
-    username: "Jim",
-    password: "password"
-  },
-  {
-    id: 3,
-    username: "Helen",
-    password: "password"
-  },
-]
+app.post('/api/login', function(req, res) {
+  
+  // get the user from the database
+
+  // Create an jwt from the user details and send the token back to the client
+  const accessToken = jwt.generateToken({id: user.id, username: user.username})
+  res.send({ accessToken: accessToken })
+})
+
+app.post('/api/register', function(req, res) {
+  // save the user to the database
+
+  // Create an jwt from the user details and send the token back to the client
+  const accessToken = jwt.generateToken({id: user.id, username: user.username})
+  res.send({ accessToken: accessToken })
+})
 
 app.get('/api/users', (req, res) => {
   res.send({
